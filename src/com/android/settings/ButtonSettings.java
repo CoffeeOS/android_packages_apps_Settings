@@ -94,6 +94,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private static final String CATEGORY_VOLUME = "volume_keys";
     private static final String CATEGORY_BACKLIGHT = "key_backlight";
     private static final String CATEGORY_NAVBAR = "navigation_bar_category";
+    private static final String KEYGUARD_TOGGLE_TORCH = "keyguard_toggle_torch";
 
     // Available custom actions to perform on a key press.
     // Must match values for KEY_HOME_LONG_PRESS_ACTION in:
@@ -139,6 +140,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private SwitchPreference mPowerEndCall;
     private SwitchPreference mHomeAnswerCall;
     private SwitchPreference mCameraDoubleTapPowerGesture;
+    private SwitchPreference mKeyguardTorch;
 
     private PreferenceCategory mNavigationPreferencesCat;
 
@@ -217,6 +219,16 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         // Navigation bar recents long press activity needs custom setup
         mNavigationRecentsLongPressAction =
                 initRecentsLongPressAction(KEY_NAVIGATION_RECENTS_LONG_PRESS);
+
+	// Keyguard Torh
+        mKeyguardTorch = (SwitchPreference) findPreference(KEYGUARD_TOGGLE_TORCH);
+        mKeyguardTorch.setOnPreferenceChangeListener(this);
+        if (!DuUtils.deviceSupportsFlashLight(getActivity())) {
+            prefSet.removePreference(mKeyguardTorch);
+        } else {
+        mKeyguardTorch.setChecked((Settings.System.getInt(resolver,
+                Settings.System.KEYGUARD_TOGGLE_TORCH, 0) == 1));
+        }
 
         final CMHardwareManager hardware = CMHardwareManager.getInstance(getActivity());
 
@@ -604,7 +616,12 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             handleSystemActionListChange(mVolumeKeyCursorControl, newValue,
                     Settings.System.VOLUME_KEY_CURSOR_CONTROL);
             return true;
-        } else if (preference == mNavigationRecentsLongPressAction) {
+        } else if (preference == mKeyguardTorch) {
+            boolean checked = ((SwitchPreference)preference).isChecked();
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.KEYGUARD_TOGGLE_TORCH, checked ? 1:0);
+            return true;
+	} else if (preference == mNavigationRecentsLongPressAction) {
             // RecentsLongPressAction is handled differently because it intentionally uses
             // Settings.System
             String putString = (String) newValue;
