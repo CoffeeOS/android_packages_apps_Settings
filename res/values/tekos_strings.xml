@@ -17,7 +17,7 @@
 	   
     <!-- Network traffic -->
     <string name="traffic_category">Traffic Indicators</string>
-    <string name="network_traffic_title">Traffic</string>
+    <string name="network_traffic_title">Traffic monitor</string>
     <string name="traffic_settings_summary">Show network traffic in statusbar</string>
     <string name="show_network_traffic_state">Status bar traffic monitor</string>
     <string name="show_network_traffic_unit">Display unit</string>

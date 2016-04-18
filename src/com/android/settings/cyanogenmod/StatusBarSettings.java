@@ -50,18 +50,13 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
     private static final String STATUS_BAR_CLOCK_STYLE = "status_bar_clock";
     private static final String STATUS_BAR_AM_PM = "status_bar_am_pm";
-    private static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
-    private static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
     private static final String STATUS_BAR_QUICK_QS_PULLDOWN = "qs_quick_pulldown";
-
-    private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
-    private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 6;
+    private static final String NETWORK_TRAFFIC_MONITOR = "network_traffic_state";
 
     private ListPreference mStatusBarClock;
     private ListPreference mStatusBarAmPm;
-    private ListPreference mStatusBarBattery;
-    private ListPreference mStatusBarBatteryShowPercent;
     private ListPreference mQuickPulldown;
+    private SwitchPreference mTrafficState;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -72,10 +67,10 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
         mStatusBarClock = (ListPreference) findPreference(STATUS_BAR_CLOCK_STYLE);
         mStatusBarAmPm = (ListPreference) findPreference(STATUS_BAR_AM_PM);
-        mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY_STYLE);
-        mStatusBarBatteryShowPercent =
-                (ListPreference) findPreference(STATUS_BAR_SHOW_BATTERY_PERCENT);
         mQuickPulldown = (ListPreference) findPreference(STATUS_BAR_QUICK_QS_PULLDOWN);
+
+        mTrafficState = (SwitchPreference) findPreference(NETWORK_TRAFFIC_MONITOR);
+        mTrafficState.setOnPreferenceChangeListener(this);
 
         int clockStyle = CMSettings.System.getInt(resolver,
                 CMSettings.System.STATUS_BAR_CLOCK, 1);
@@ -93,19 +88,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             mStatusBarAmPm.setSummary(mStatusBarAmPm.getEntry());
             mStatusBarAmPm.setOnPreferenceChangeListener(this);
         }
-
-        int batteryStyle = CMSettings.System.getInt(resolver,
-                CMSettings.System.STATUS_BAR_BATTERY_STYLE, 0);
-        mStatusBarBattery.setValue(String.valueOf(batteryStyle));
-        mStatusBarBattery.setSummary(mStatusBarBattery.getEntry());
-        mStatusBarBattery.setOnPreferenceChangeListener(this);
-
-        int batteryShowPercent = CMSettings.System.getInt(resolver,
-                CMSettings.System.STATUS_BAR_SHOW_BATTERY_PERCENT, 0);
-        mStatusBarBatteryShowPercent.setValue(String.valueOf(batteryShowPercent));
-        mStatusBarBatteryShowPercent.setSummary(mStatusBarBatteryShowPercent.getEntry());
-        enableStatusBarBatteryDependents(batteryStyle);
-        mStatusBarBatteryShowPercent.setOnPreferenceChangeListener(this);
 
         int quickPulldown = CMSettings.System.getInt(resolver,
                 CMSettings.System.STATUS_BAR_QUICK_QS_PULLDOWN, 1);
@@ -149,39 +131,22 @@ public class StatusBarSettings extends SettingsPreferenceFragment
                     resolver, CMSettings.System.STATUS_BAR_AM_PM, statusBarAmPm);
             mStatusBarAmPm.setSummary(mStatusBarAmPm.getEntries()[index]);
             return true;
-        } else if (preference == mStatusBarBattery) {
-            int batteryStyle = Integer.valueOf((String) newValue);
-            int index = mStatusBarBattery.findIndexOfValue((String) newValue);
-            CMSettings.System.putInt(
-                    resolver, CMSettings.System.STATUS_BAR_BATTERY_STYLE, batteryStyle);
-            mStatusBarBattery.setSummary(mStatusBarBattery.getEntries()[index]);
-            enableStatusBarBatteryDependents(batteryStyle);
-            return true;
-        } else if (preference == mStatusBarBatteryShowPercent) {
-            int batteryShowPercent = Integer.valueOf((String) newValue);
-            int index = mStatusBarBatteryShowPercent.findIndexOfValue((String) newValue);
-            CMSettings.System.putInt(
-                    resolver, CMSettings.System.STATUS_BAR_SHOW_BATTERY_PERCENT, batteryShowPercent);
-            mStatusBarBatteryShowPercent.setSummary(
-                    mStatusBarBatteryShowPercent.getEntries()[index]);
-            return true;
         } else if (preference == mQuickPulldown) {
             int quickPulldown = Integer.valueOf((String) newValue);
             CMSettings.System.putInt(
                     resolver, CMSettings.System.STATUS_BAR_QUICK_QS_PULLDOWN, quickPulldown);
             updatePulldownSummary(quickPulldown);
             return true;
+        } else if (preference == mTrafficState) {
+            handleTrafficMonitorState((Boolean) newValue);
+            return true;
         }
         return false;
     }
 
-    private void enableStatusBarBatteryDependents(int batteryIconStyle) {
-        if (batteryIconStyle == STATUS_BAR_BATTERY_STYLE_HIDDEN ||
-                batteryIconStyle == STATUS_BAR_BATTERY_STYLE_TEXT) {
-            mStatusBarBatteryShowPercent.setEnabled(false);
-        } else {
-            mStatusBarBatteryShowPercent.setEnabled(true);
-        }
+    private void handleTrafficMonitorState(boolean checked) {
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.NETWORK_TRAFFIC_STATE, (checked ? 3 : 0));
     }
 
     private void updatePulldownSummary(int value) {
