@@ -48,6 +48,7 @@ import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
+import com.android.internal.util.du.DuUtils;
 
 import cyanogenmod.hardware.CMHardwareManager;
 import cyanogenmod.providers.CMSettings;
@@ -224,7 +225,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         mKeyguardTorch = (SwitchPreference) findPreference(KEYGUARD_TOGGLE_TORCH);
         mKeyguardTorch.setOnPreferenceChangeListener(this);
         if (!DuUtils.deviceSupportsFlashLight(getActivity())) {
-            prefSet.removePreference(mKeyguardTorch);
+            prefScreen.removePreference(mKeyguardTorch);
         } else {
         mKeyguardTorch.setChecked((Settings.System.getInt(resolver,
                 Settings.System.KEYGUARD_TOGGLE_TORCH, 0) == 1));

@@ -250,6 +250,12 @@ public class PowerUsageSummary extends PowerUsageBase
         } return false;
     }
 
+    private void handleToggleStatusBarBatteryShowPercent(boolean checked) {
+        ContentResolver resolver = getActivity().getContentResolver(); 
+            CMSettings.System.putInt(
+                    resolver, CMSettings.System.STATUS_BAR_SHOW_BATTERY_PERCENT, (checked ? 2 : 0));
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (DEBUG) {
