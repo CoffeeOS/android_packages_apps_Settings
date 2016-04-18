@@ -233,6 +233,7 @@ public class PowerUsageSummary extends PowerUsageBase
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (newValue != null) {
             if (preference == mPerfProfilePref) {
                 Integer value = Integer.valueOf((String) (newValue));
                 boolean powerProfileUpdated = mPerf.setPowerProfile(value);
@@ -241,7 +242,8 @@ public class PowerUsageSummary extends PowerUsageBase
                 }
                 return powerProfileUpdated;
             }
-        } return false;
+        }
+        return false;
     }
 
     @Override
@@ -658,3 +660,4 @@ public class PowerUsageSummary extends PowerUsageBase
         }
     };
 }
+
