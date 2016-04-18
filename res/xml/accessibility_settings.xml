@@ -89,4 +89,14 @@
             android:persistent="false" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="gesture_category"
+        android:title="@string/accessibility_gesture_title" >
+    <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+        android:key="three_finger_gesture"
+        android:title="@string/three_finger_gesture"
+        android:summary="@string/three_finger_gesture_summary"
+        android:defaultValue="false" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

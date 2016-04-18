@@ -92,5 +92,10 @@
     <!-- Lockscreen Torch -->
     <string name="blur_system_title">Blur display</string>
     <string name="blur_system_summary">Display blur over system, may reduce performance</string>
+    <!-- Accessibility Gesture -->
+    <string name="accessibility_gesture_title">Gesture</string>
+    <string name="three_finger_gesture">Screenshot gesture</string>
+    <string name="three_finger_gesture_summary">Swipe three fingers anywhere to take screenshot</string>
+
 
 </resources>
