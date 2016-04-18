@@ -78,5 +78,8 @@
     <!-- About phone screen, TekOS version -->
     <string name="marsh_title">TekOS</string>
 
+    <!-- Status bar - Battery percentage -->
+    <string name="status_bar_battery_percentage_title">Battery percentage</string>
+    <string name="status_bar_battery_percentage_summary">Display battery percentage in the status bar.</string>
 
 </resources>

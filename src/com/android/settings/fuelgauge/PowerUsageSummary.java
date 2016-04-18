@@ -85,6 +85,7 @@ public class PowerUsageSummary extends PowerUsageBase
     private static final String KEY_BATTERY_HISTORY = "battery_history";
     private static final String KEY_PERF_PROFILE = "pref_perf_profile";
     private static final String KEY_PER_APP_PROFILES = "app_perf_profiles_enabled";
+    private static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
 
     private static final String KEY_BATTERY_SAVER = "low_power";
 
@@ -99,6 +100,7 @@ public class PowerUsageSummary extends PowerUsageBase
     private ListPreference mPerfProfilePref;
     private SwitchPreference mPerAppProfiles;
     private SwitchPreference mBatterySaverPref;
+    private SwitchPreference mStatusBarBatteryShowPercent;
 
     private String[] mPerfProfileEntries;
     private String[] mPerfProfileValues;
@@ -143,6 +145,8 @@ public class PowerUsageSummary extends PowerUsageBase
         mNumPerfProfiles = mPerf.getNumberOfProfiles();
         mPerfProfilePref = (ListPreference) findPreference(KEY_PERF_PROFILE);
         mPerAppProfiles = (SwitchPreference) findPreference(KEY_PER_APP_PROFILES);
+        mStatusBarBatteryShowPercent = (SwitchPreference) findPreference(STATUS_BAR_SHOW_BATTERY_PERCENT);
+        mStatusBarBatteryShowPercent.setOnPreferenceChangeListener(this);
         if (mNumPerfProfiles < 1) {
             removePreference(KEY_PERF_PROFILE);
             removePreference(KEY_PER_APP_PROFILES);
@@ -233,7 +237,6 @@ public class PowerUsageSummary extends PowerUsageBase
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (newValue != null) {
             if (preference == mPerfProfilePref) {
                 Integer value = Integer.valueOf((String) (newValue));
                 boolean powerProfileUpdated = mPerf.setPowerProfile(value);
@@ -241,9 +244,10 @@ public class PowerUsageSummary extends PowerUsageBase
                     updatePerformanceSummary();
                 }
                 return powerProfileUpdated;
-            }
-        }
-        return false;
+            } else if(preference == mStatusBarBatteryShowPercent) {
+            handleToggleStatusBarBatteryShowPercent((Boolean) newValue);
+	    return true;
+        } return false;
     }
 
     @Override
