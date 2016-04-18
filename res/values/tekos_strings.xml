@@ -82,4 +82,11 @@
     <string name="status_bar_battery_percentage_title">Battery percentage</string>
     <string name="status_bar_battery_percentage_summary">Display battery percentage in the status bar.</string>
 
+
+    <!-- Lockscreen Torch -->
+    <!-- Title of setting that controls gesture to launch torch by long pressing the power button [CHAR LIMIT=40] -->
+    <string name="keyguard_torch_title">Long press power button for torch</string>
+    <!-- Description of setting that controls gesture to launch torch by long pressing the power button [CHAR LIMIT=NONE] -->
+    <string name="keyguard_torch_summary">Quickly launch torch by long pressing the power button when screen off</string>
+
 </resources>
