@@ -1,4 +1,4 @@
-package com.android.settings.marshrom.fragments;
+package com.android.settings.tekos;
 
 import android.app.ActivityManagerNative;
 import android.app.Dialog;
@@ -36,8 +36,8 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 //import com.android.settings.util.CMDProcessor;
 //import com.android.settings.marshrom.Helpers;
-import com.android.settings.marshrom.AppMultiSelectListPreference;
-import com.android.settings.marshrom.widget.SeekBarPreferenceCham;
+import com.android.settings.tekos.util.AppMultiSelectListPreference;
+import com.android.settings.tekos.util.SeekBarPreferenceCham;
 
 import java.io.File;
 import java.lang.Thread;

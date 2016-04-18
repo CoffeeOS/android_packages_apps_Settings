@@ -2199,8 +2199,6 @@
             <meta-data android:name="com.android.settings.TOP_LEVEL_HEADER_ID"
                 android:resource="@id/profiles_settings" />
         </activity>
-	
-	<activity android:name="com.android.settings.marshrom.Traffic" />
 
         <!-- Keep compatibility with old shortcuts. -->
         <activity-alias android:name="ProfileSettings"
