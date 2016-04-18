@@ -205,7 +205,7 @@
         <!-- Marsh -->
         <dashboard-tile
                 android:id="@+id/marsh_settings"
-                android:title="@string/marsh_settings"
+                android:title="@string/marsh_title"
                 android:fragment="com.android.settings.MarshSettings"
                 android:icon="@drawable/ic_settings_statusbar"
                 />
