@@ -21,6 +21,7 @@ import android.app.ActivityManagerNative;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
@@ -92,6 +93,8 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
             "screen_magnification_preference_screen";
     private static final String DISPLAY_DALTONIZER_PREFERENCE_SCREEN =
             "daltonizer_preference_screen";
+    private static final String BLUR_DISPLAY_PREFERENCE =
+            "blur_system_preference";
 
     // Extras passed to sub-fragments.
     static final String EXTRA_PREFERENCE_KEY = "preference_key";
@@ -178,6 +181,7 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
     private PreferenceScreen mGlobalGesturePreferenceScreen;
     private PreferenceScreen mDisplayDaltonizerPreferenceScreen;
     private SwitchPreference mToggleInversionPreference;
+    private SwitchPreference mBlurDisplayPreference;
 
     private int mLongPressTimeoutDefault;
 
@@ -227,6 +231,9 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
         } else if (mToggleInversionPreference == preference) {
             handleToggleInversionPreferenceChange((Boolean) newValue);
             return true;
+        } else if (mBlurDisplayPreference == preference) {
+            handleBlurDisplayPreferenceChange((Boolean) newValue);
+            return true;
         }
         return false;
     }
@@ -236,6 +243,20 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
                 Settings.Secure.LONG_PRESS_TIMEOUT, Integer.parseInt(stringValue));
         mSelectLongPressTimeoutPreference.setSummary(
                 mLongPressTimeoutValuetoTitleMap.get(stringValue));
+    }
+    private void handleBlurDisplayPreferenceChange(boolean checked) {
+	Intent i = new Intent("serajr.blurred.system.ui.lp.UPDATE_PREFERENCES");
+        Settings.System.putInt(
+                getContentResolver(), Settings.System.STATUS_BAR_EXPANDED_ENABLED_PREFERENCE_KEY, (checked ? 1 : 0));
+        Settings.System.putInt(
+                getContentResolver(), Settings.System.TRANSLUCENT_NOTIFICATIONS_PREFERENCE_KEY, (checked ? 1 : 0));
+        Settings.System.putInt(
+                getContentResolver(), Settings.System.TRANSLUCENT_HEADER_PREFERENCE_KEY, (checked ? 1 : 0));
+        Settings.System.putInt(
+                getContentResolver(), Settings.System.TRANSLUCENT_QUICK_SETTINGS_PREFERENCE_KEY, (checked ? 1 : 0));
+        Settings.System.putInt(
+                getContentResolver(), Settings.System.RECENT_APPS_ENABLED_PREFERENCE_KEY, (checked ? 1 : 0));
+	getContext().sendBroadcast(i);
     }
 
     private void handleToggleInversionPreferenceChange(boolean checked) {
@@ -314,12 +335,14 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
         mSystemsCategory = (PreferenceCategory) findPreference(SYSTEM_CATEGORY);
 
         // Large text.
-        mToggleLargeTextPreference =
-                (SwitchPreference) findPreference(TOGGLE_LARGE_TEXT_PREFERENCE);
+        mToggleLargeTextPreference = (SwitchPreference) findPreference(TOGGLE_LARGE_TEXT_PREFERENCE);
 
         // Text contrast.
-        mToggleHighTextContrastPreference =
-                (SwitchPreference) findPreference(TOGGLE_HIGH_TEXT_CONTRAST_PREFERENCE);
+        mToggleHighTextContrastPreference = (SwitchPreference) findPreference(TOGGLE_HIGH_TEXT_CONTRAST_PREFERENCE);
+
+	// Blur Display
+	mBlurDisplayPreference = (SwitchPreference) findPreference(BLUR_DISPLAY_PREFERENCE);
+        mBlurDisplayPreference.setOnPreferenceChangeListener(this);
 
         // Display inversion.
         mToggleInversionPreference = (SwitchPreference) findPreference(TOGGLE_INVERSION_PREFERENCE);
@@ -491,6 +514,17 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
         // If the quick setting is enabled, the preference MUST be enabled.
         mToggleInversionPreference.setChecked(Settings.Secure.getInt(getContentResolver(),
                 Settings.Secure.ACCESSIBILITY_DISPLAY_INVERSION_ENABLED, 0) == 1);
+
+        mBlurDisplayPreference.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_EXPANDED_ENABLED_PREFERENCE_KEY, 1) == 1);
+        mBlurDisplayPreference.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.TRANSLUCENT_NOTIFICATIONS_PREFERENCE_KEY, 1) == 1);
+        mBlurDisplayPreference.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.TRANSLUCENT_QUICK_SETTINGS_PREFERENCE_KEY, 1) == 1);
+        mBlurDisplayPreference.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.TRANSLUCENT_HEADER_PREFERENCE_KEY, 1) == 1);
+        mBlurDisplayPreference.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.RECENT_APPS_ENABLED_PREFERENCE_KEY, 1) == 1);
 
         // Speak passwords.
         final boolean speakPasswordEnabled = Settings.Secure.getInt(getContentResolver(),

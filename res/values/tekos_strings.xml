@@ -89,4 +89,8 @@
     <!-- Description of setting that controls gesture to launch torch by long pressing the power button [CHAR LIMIT=NONE] -->
     <string name="keyguard_torch_summary">Quickly launch torch by long pressing the power button when screen off</string>
 
+    <!-- Lockscreen Torch -->
+    <string name="blur_system_title">Blur display</string>
+    <string name="blur_system_summary">Display blur over system, may reduce performance</string>
+
 </resources>
