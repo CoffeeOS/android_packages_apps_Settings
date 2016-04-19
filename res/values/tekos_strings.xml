@@ -80,8 +80,7 @@
 
     <!-- Status bar - Battery percentage -->
     <string name="status_bar_battery_percentage_title">Battery percentage</string>
-    <string name="status_bar_battery_percentage_summary">Display battery percentage in the status bar.</string>
-
+    <string name="status_bar_battery_percentage_summary">Displascreenshot_soundy battery percentage in the status bar.</string>
 
     <!-- Lockscreen Torch -->
     <!-- Title of setting that controls gesture to launch torch by long pressing the power button [CHAR LIMIT=40] -->
@@ -92,10 +91,14 @@
     <!-- Lockscreen Torch -->
     <string name="blur_system_title">Blur display</string>
     <string name="blur_system_summary">Display blur over system, may reduce performance</string>
+
     <!-- Accessibility Gesture -->
     <string name="accessibility_gesture_title">Gesture</string>
     <string name="three_finger_gesture">Screenshot gesture</string>
     <string name="three_finger_gesture_summary">Swipe three fingers anywhere to take screenshot</string>
+
+    <!-- Screenshot sound -->
+    <string name="screenshot_sound_title">Screenshot sound</string>
 
 
 </resources>
