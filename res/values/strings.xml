@@ -2015,7 +2015,7 @@
     <!-- Sound & display settings screen, setting option summary to change screen timeout -->
     <string name="screen_timeout_summary">After <xliff:g id="timeout_description">%1$s</xliff:g> of inactivity</string>
     <!-- Wallpaper settings title [CHAR LIMIT=30] -->
-    <string name="wallpaper_settings_title">Wallpaper</string>
+    <string name="home_wallpaper_settings_title">Wallpaper</string>
     <!-- Wallpaper settings fragment title [CHAR LIMIT=30] -->
     <string name="wallpaper_settings_fragment_title">Choose wallpaper from</string>
     <!-- Display settings screen, trigger for screen saver options -->
@@ -5942,7 +5942,7 @@
     <string name="keywords_display_auto_brightness">dim screen touchscreen battery</string>
     <!-- Search keywords for display light/dark theme: dark theme, night mode, dim screen, invert brightness [CHAR LIMIT=NONE] -->
     <string name="keywords_display_night_mode">dark theme night mode dim screen invert brightness</string>
-    <string name="keywords_display_wallpaper">background personalize customize display</string>
+    <string name="keywords_display_home_wallpaper">background personalize customize display</string>
     <string name="keywords_display_font_size">text size</string>
     <string name="keywords_display_cast_screen">project cast</string>
     <string name="keywords_storage">space disk hard drive device usage</string>

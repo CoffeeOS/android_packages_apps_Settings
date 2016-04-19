@@ -468,7 +468,7 @@ public class SettingsActivity extends Activity
     public boolean onPreferenceStartFragment(PreferenceFragment caller, Preference pref) {
         // Override the fragment title for Wallpaper settings
         int titleRes = pref.getTitleRes();
-        if (pref.getFragment().equals(WallpaperTypeSettings.class.getName())) {
+        if (pref.getFragment().equals(HomeWallpaperTypeSettings.class.getName())) {
             titleRes = R.string.wallpaper_settings_fragment_title;
         } else if (pref.getFragment().equals(OwnerInfoSettings.class.getName())
                 && UserHandle.myUserId() != UserHandle.USER_OWNER) {

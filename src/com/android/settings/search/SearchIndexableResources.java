@@ -29,7 +29,9 @@ import com.android.settings.PrivacySettings;
 import com.android.settings.R;
 import com.android.settings.ScreenPinningSettings;
 import com.android.settings.SecuritySettings;
-import com.android.settings.WallpaperTypeSettings;
+import com.android.settings.HomeWallpaperTypeSettings;
+import com.android.settings.WallpaperSettings;
+import com.android.settings.tekos.LockscreenWallpaper;
 import com.android.settings.WifiCallingSettings;
 import com.android.settings.WirelessSettings;
 import com.android.settings.accessibility.AccessibilitySettings;
@@ -145,12 +147,26 @@ public final class SearchIndexableResources {
                         DisplaySettings.class.getName(),
                         R.drawable.ic_settings_display));
 
-        sResMap.put(WallpaperTypeSettings.class.getName(),
+        sResMap.put(HomeWallpaperTypeSettings.class.getName(),
                 new SearchIndexableResource(
-                        Ranking.getRankForClassName(WallpaperTypeSettings.class.getName()),
+                        Ranking.getRankForClassName(HomeWallpaperTypeSettings.class.getName()),
                         NO_DATA_RES_ID,
-                        WallpaperTypeSettings.class.getName(),
-                        R.drawable.ic_settings_display));
+                        HomeWallpaperTypeSettings.class.getName(),
+                        R.drawable.ic_settings_wallpaper));
+
+        sResMap.put(WallpaperSettings.class.getName(),
+                new SearchIndexableResource(
+                        Ranking.getRankForClassName(WallpaperSettings.class.getName()),
+                        NO_DATA_RES_ID,
+                        WallpaperSettings.class.getName(),
+                        R.drawable.ic_settings_wallpaper));
+
+        sResMap.put(LockscreenWallpaper.class.getName(),
+                new SearchIndexableResource(
+                        Ranking.getRankForClassName(LockscreenWallpaper.class.getName()),
+                        NO_DATA_RES_ID,
+                        LockscreenWallpaper.class.getName(),
+                        R.drawable.ic_settings_wallpaper));
 
         sResMap.put(SoundSettings.class.getName(),
                 new SearchIndexableResource(

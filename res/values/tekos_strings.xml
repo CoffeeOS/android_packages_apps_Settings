@@ -100,5 +100,17 @@
     <!-- Screenshot sound -->
     <string name="screenshot_sound_title">Screenshot sound</string>
 
+    <!-- Screenshot sound -->
+    <string name="wallpaper_settings">Wallpaper</string>
+    <string name="lockscreen_wallpaper_settings_title">Lockscreen wallpaper</string>
+    <string name="keywords_display_lockscreen_wallpaper">lockscreen wallpaper changing</string>
+    <string name="lockscreen_wallpaper_set_title">Lockscreen wallpaper set</string>
+    <string name="lockscreen_wallpaper_set_summary">Change lockscreen wallpaper</string>
+    <string name="lockscreen_wallpaper_clear_title">Clear lockscreen wallpaper</string>
+    <string name="lockscreen_wallpaper_clear_summary">Going back to default wallpaper (normally the homescreen wallpaper)</string>
+    <string name="lockscreen_live_wallpaper_title">Live wallpaper</string>
+    <string name="lockscreen_live_wallpaper_set_title">Lockscreen live wallpaper</string>
+    <string name="lockscreen_live_wallpaper_set_summary">Use live wallpaper for lockscreen</string>
+    <string name="reset_lockscreen_wallpaper">Resetting wallpaper</string>
 
 </resources>

@@ -32,7 +32,7 @@ import com.android.settings.search.SearchIndexableRaw;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WallpaperTypeSettings extends SettingsPreferenceFragment implements Indexable {
+public class HomeWallpaperTypeSettings extends SettingsPreferenceFragment implements Indexable {
 
     @Override
     protected int getMetricsCategory() {
@@ -48,7 +48,7 @@ public class WallpaperTypeSettings extends SettingsPreferenceFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.wallpaper_settings);
+        addPreferencesFromResource(R.xml.home_wallpaper_settings);
         populateWallpaperTypes();
     }
 

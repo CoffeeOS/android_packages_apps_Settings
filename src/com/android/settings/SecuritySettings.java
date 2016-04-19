@@ -348,14 +348,6 @@ public class SecuritySettings extends SettingsPreferenceFragment
                         R.string.lockpattern_settings_power_button_instantly_locks_summary,
                         trustAgentPreference.getTitle()));
             }
-            
-            mBlurRadius = (SeekBarPreference) findPreference(KEY_BLUR_RADIUS);
-            if (mBlurRadius != null) {
-                mBlurRadius.setValue(CMSettings.System.getInt(getContentResolver(),
-                        CMSettings.System.LOCKSCREEN_BLUR_RADIUS, 14));
-                mBlurRadius.setOnPreferenceChangeListener(this);
-            }
-
             // Add live lock screen preference if supported
             PreferenceGroup generalCategory = (PreferenceGroup)
                     root.findPreference(KEY_GENERAL_CATEGORY);
