@@ -620,7 +620,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         } else if (preference == mKeyguardTorch) {
             boolean checked = ((SwitchPreference)preference).isChecked();
             Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.KEYGUARD_TOGGLE_TORCH, checked ? 1:0);
+                    Settings.System.KEYGUARD_TOGGLE_TORCH, checked ? 0:1);
             return true;
 	} else if (preference == mNavigationRecentsLongPressAction) {
             // RecentsLongPressAction is handled differently because it intentionally uses
